@@ -2,8 +2,8 @@ print("hello world" ) #how python give the input
 
 print("my name is Aniqa","my age is 19")
 
-# print(45)
-# print(67+45)
+print(45)
+print(67+45)
 
 # # learn about variables
 # name="Aniqa Riaz"
