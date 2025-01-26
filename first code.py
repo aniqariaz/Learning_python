@@ -1,6 +1,6 @@
-# print("hello world" ) #how python give the input
+print("hello world" ) #how python give the input
 
-# print("my name is Aniqa","my age is 19")
+print("my name is Aniqa","my age is 19")
 
 # print(45)
 # print(67+45)
