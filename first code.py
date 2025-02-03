@@ -23,7 +23,7 @@ print(age2)
 
 # # #data type
 print(type(name))
-# print(type(age))
+print(type(age))
 print(type(price))
 
 age=None
@@ -33,7 +33,7 @@ old=False
 print(type(old))
 print(type(age))
 
-print sum
+# print sum
 a=6
 b=4
 diff=a-b
@@ -88,8 +88,8 @@ print(not True)
 print(not(a>b))
 
 # and operator
-val1=True
-val2=True
+val1=False
+val2=False
 print("and operator:",val1 and val2)
 
 #or operator
