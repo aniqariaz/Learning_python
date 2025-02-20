@@ -59,7 +59,9 @@ list = [1, 3, 2, 4]
 list.pop(3) # pop the element by accessing the index..
 print(list)
 
-# # learn about tuple...tuples are immutable ...
+# # learn about tuple...tuples are immutable ...Since tuples cannot be modified,
+# their methods always return a new value.
+# You must print these methods to see the output.
 tup = (1, 2, 3, 4)
 print(tup)
 print(type(tup))

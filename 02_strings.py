@@ -1,4 +1,4 @@
-str1="hi I am string.\n And i am so happy."
+str1="hi I am string.\n And i am so happy." # strings are immutable..
 print(str1)
 
 # #concatenate
