@@ -1,5 +1,5 @@
 # learn about dictionary which are mutable and un ordered..it is a built in data type
-# which is used to store data in key value pair ....
+# # which is used to store data in key value pair ....
 
 info = {
     "key" : "value",
@@ -9,56 +9,56 @@ info = {
     "top" : ("dictionary"),
     
 }
-# print(type(info))
-# print(info["name"])
-# print(info["top"])
-# print(info["subject"])
+print(type(info))
+print(info["name"])
+print(info["top"])
+print(info["subject"])
 
-# # if we want to change the value... and add the value...
-# info["name"] = "Aqsa riaz" # change the name..
-# info["school"] = "city of knowledge" # add a value.. 
-# print(info)
+# if we want to change the value... and add the value...
+info["name"] = "Aqsa riaz" # change the name..
+info["school"] = "city of knowledge" # add a value.. 
+print(info)
 
-# null_dict ={}
-# null_dict["name"]="Aniqa riaz"
-# print(null_dict)
+null_dict ={}
+null_dict["name"]="Aniqa riaz"
+print(null_dict)
 
-# #nested dictionary...
-# student = {
-#     "name": "Aniqa riaz",
-#     "subject" :{
-#         "physics":97,
-#         "math": 80,
-#         "com": 91,
-#     }
-# }
-# print((student)["subject"])
+# # #nested dictionary...
+student = {
+    "name": "Aniqa riaz",
+    "subject" :{
+        "physics":97,
+        "math": 80,
+        "com": 91,
+    }
+}
+print((student)["subject"])
 
-# # dictionary method..
+# # # dictionary method..
 
-# student = {
-#     "name": "Aniqa riaz",
-#     "subject" :{
-#         "physics":97,
-#         "math": 80,
-#         "com": 91,
-#     }
-# }
-# print(list(student.keys()))# if we want to type cast in list
-# print(len(student))
+student = {
+    "name": "Aniqa riaz",
+    "subject" :{
+        "physics":97,
+        "math": 80,
+        "com": 91,
+    }
+}
+print(list(student.keys()))# if we want to type cast in list
+print(len(student))
 
-# print(list(student.values()))
+print(list(student.values()))
 
-# print(list(student.items()))
+print(list(student.items()))
 
-# print(student.get("name"))
+print(student.get("name"))
 
-# new_dict ={"city":"karachi"}
-# student.update(new_dict)
-# print(student)
+new_dict ={"city":"karachi"}
+student.update(new_dict)
+print(student)
 
-# sets is the collection of unordered item the elements in the sets are immutable
-# but the is set is mutable...
+# # sets is the collection of unordered item the elements in the sets are immutable
+# # but the is set is mutable...
 
 collection = {1, 2, 3, 4,4,4, "hello", "world", "world"}
 print(collection)
@@ -77,8 +77,8 @@ null_set.add("happy")
 null_set.add((1, 2, 3, 4))
 print(null_set)
 
-# null_set.remove(3)
-# print(null_set)
+null_set.remove(3)
+print(null_set)
 
 null_set.clear()
 print(len(null_set))
@@ -88,7 +88,7 @@ collection.pop()
 collection.pop()
 print(collection)
 
-# more important method union sets and intersection sets...
+# # more important method union sets and intersection sets...
 set1 ={1, 2, 3} #common elements will not be repeated...
 set2 ={2,3,4,5}
 print(set1.union(set2))
@@ -97,8 +97,8 @@ set1 ={1, 2, 3} #intersection include only common element...
 set2 ={2,3,4,5}
 print(set1.intersection(set2))
 
-#practice questions....
-#store following words meanining in a python dictionary...
+# #practice questions....
+#store following words meaning in a python dictionary...
 
 python_dictionary ={
     "table" : ["a piece of furniture", "a list of facts and figure"],
@@ -106,9 +106,38 @@ python_dictionary ={
 }
 print(python_dictionary)
 
-# to calulate the unique subjects we have to store it in the set....
+# # to calculate the unique subjects we have to store it in the set....
 set3 ={"python","java","c++","python","javascript","java", "python", "java", "c++","c"}
 print(len(set3))
+
+# take 3 subjects from a user and store them in a dictionary..
+# start with an empty dictionary and add one by one use subject name as a key.. and marks as value..
+
+marks ={}
+
+x=int(input("enter phy:"))
+marks.update({"phy":x})
+
+x=int(input("enter math:"))
+marks.update({"math":x})
+
+x=int(input("enter comp:"))
+marks.update({"com":x})
+
+print(marks)
+
+# store the vale 9 and 9.0 as separate value in the set..  immutable and hashable)
+value ={9, "9.0"}
+print(value)
+
+value ={
+    ("float" , 9.0),
+    ("int" ,9),
+}
+print(value)
+
+
+
 
 
 
