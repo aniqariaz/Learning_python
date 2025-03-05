@@ -58,7 +58,8 @@ student.update(new_dict)
 print(student)
 
 # # sets is the collection of unordered item the elements in the sets are immutable
-# # but the is set is mutable...
+# # but the  set is mutable...
+
 
 collection = {1, 2, 3, 4,4,4, "hello", "world", "world"}
 print(collection)
