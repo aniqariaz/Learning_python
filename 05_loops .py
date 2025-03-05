@@ -3,8 +3,8 @@
 # to make the condition false to stop the repeat instruction..It is commonly used when the number
 # of iterations is not known..
 
-while True :
-    print("hello world") # it will print infinite time..
+# while True :
+#     print("hello world") # it will print infinite time..
 
 count = 1
 while count<=5 :
