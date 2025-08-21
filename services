@@ -1,0 +1,128 @@
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER: airflow
+      - POSTGRES_PASSWORD: airflow
+      - POSTGRES_DB: airflow
+    volumes:
+     - postgres-db-volume:/var/lib/postgresql/data
+    healthcheck:
+       test: ["CMD", "pg_isready", "U", "airflow"]
+       interval: 5s
+       retries: 5
+    retries: always
+
+
+docker run -it -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=ny_taxi -v C:\Users\aniqa\2_docker_sql\ny_taxi_postgres_data:/var/lib/postgresql/data -p 5432:5432 postgres: 13
+
+ https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet 
+
+docker run -it -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=root -p 8080:80 dpage/pgadmin4
+
+
+#network
+docker network create pg-network
+
+docker run -it -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=ny_taxi -v C:\Users\aniqa\2_docker_sql\ny_taxi_postgres_data:/var/lib/postgresql/data -p 5432:5432 --network=pg-network --name pg-database postgres:13
+
+docker run -it -e PGADMIN_DEFAULT_EMAIL=admin@admin.com -e PGADMIN_DEFAULT_PASSWORD=root -p 8080:80 --network=pg-network --name pgadmin-2  dpage/pgadmin4
+
+URL ="https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet"
+
+python ingested-data.py --user=root --password=root --host=localhost --port=5432 --db=ny_taxi --table_name=yellow_taxi_trips --url=https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet
+
+docker build -t taxi-ingest:v002 .
+
+docker run -it --network=pg-network taxi-ingest:v002  --user=root --password=root --host=pg-database --port=5432 --db=ny_taxi --table_name=yellow_taxi_trips --url=https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet
+
+
+
+# 🔹 --network=pg-network
+# This connects your container to a custom Docker network where your PostgreSQL database is also running.
+
+# So your Python script can talk to the database using the container name (pg-database) instead of localhost.
+
+# 🔁 Real-Life Analogy
+# taxi-ingest:v002 = a robot that downloads and loads data
+
+# pg-database = a warehouse (PostgreSQL) where the robot stores the boxes (rows of data)
+
+# pg-network = a hallway that connects the robot to the warehouse
+
+# docker run -it taxi-ingest:v002 --host=localhost
+# Now localhost = the inside of the container, not your laptop.
+
+# That container is not the same as your host.
+
+# So when the script tries localhost:5432, it's looking for Postgres inside the container, which doesn't exist — and it fails
+
+
+
+version: "3.9"
+
+services:
+  pg-database:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-network
+
+  pgadmin-2:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"
+    networks:
+      - pg-network
+
+networks:
+  pg-network:.
+
+
+
+
+
+  version: "3.9"
+
+services:
+  pg-database:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - "./ny_taxi_postgres_data:/var/lib/postgresql/data:rw"
+    ports:
+      - "5432:5432"
+
+  pgadmin-2:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "8080:80"
+
+  taxi-ingest:
+    image: taxi-ingest:v002
+    depends_on:
+      - pg-database
+    command: >
+      --user=root
+      --password=root
+      --host=pg-database
+      --port=5432
+      --db=ny_taxi
+      --table_name=yellow_taxi_trips
+      --url=https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2021-01.parquet
